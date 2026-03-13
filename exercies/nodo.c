@@ -4,41 +4,99 @@
 
 /* Ejercicio 1 */
 Nodo* crearNodo(int valor){
-    // TODO(1): usar malloc
-    return NULL;
+    Nodo* nuevo = (Nodo*)malloc(sizeof(Nodo));
+
+    if(nuevo == NULL){
+        return NULL;
+    }
+
+    nuevo->dato = valor;
+    nuevo->sig = NULL;
+
+    return nuevo;
 }
 
 /* Ejercicio 2 */
 Nodo* crearArregloNodos(int n){
-    // TODO(2): usar calloc
-    return NULL;
+    Nodo* arreglo = (Nodo*)calloc(n, sizeof(Nodo));
+    return arreglo;
 }
 
 /* Ejercicio 3 */
 Nodo* agregarNodo(Nodo* arreglo, int* n, int valor){
-    // TODO(3): usar realloc
-    return NULL;
+    Nodo* temp = realloc(arreglo, (*n + 1) * sizeof(Nodo));
+
+    if(temp == NULL){
+        return arreglo;
+    }
+
+    arreglo = temp;
+
+    arreglo[*n].dato = valor;
+    arreglo[*n].sig = NULL;
+
+    (*n)++;
+
+    return arreglo;
 }
 
 /* Ejercicio 4 */
 void liberarNodos(Nodo* arreglo, int n){
-    // TODO (4): liberar memoria
+    free(arreglo);
 }
 
 /* Ejercicio 5 */
 Nodo* construirTresNodos(){
-    // TODO(5): crear 3 nodos enlazados manualmente
-    return NULL;
+    Nodo* nodo1 = crearNodo(1);
+    Nodo* nodo2 = crearNodo(2);
+    Nodo* nodo3 = crearNodo(3);
+
+    nodo1->sig = nodo2;
+    nodo2->sig = nodo3;
+    nodo3->sig = NULL;
+
+    return nodo1;
 }
 
 /* Ejercicio 6 */
 int contarNodos(Nodo* inicio){
-    // TODO(6): recorrer nodos
-    return 0;
+    int contador = 0;
+
+    while(inicio != NULL){
+        contador++;
+        inicio = inicio->sig;
+    }
+
+    return contador;
 }
 
 /* Ejercicio 7 */
 Nodo* crearNodosPorEntrada(){
-    // TODO(7): leer números y crear nodos dinámicamente
-    return NULL;
+    int valor;
+    Nodo* inicio = NULL;
+    Nodo* actual = NULL;
+
+    printf("Ingresa numeros (-1 para terminar): ");
+
+    while(1){
+
+        scanf("%d",&valor);
+
+        if(valor == -1){
+            break;
+        }
+
+        Nodo* nuevo = crearNodo(valor);
+
+        if(inicio == NULL){
+            inicio = nuevo;
+            actual = nuevo;
+        }
+        else{
+            actual->sig = nuevo;
+            actual = nuevo;
+        }
+    }
+
+    return inicio;
 }
